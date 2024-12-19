@@ -1,20 +1,22 @@
-# Sparq Programming Language
+# 🚀 Sparq Programming Language 🌟
 
-Sparq is a lightweight, easy-to-understand programming language designed for simplicity and flexibility. Inspired by languages like JavaScript and C++, Sparq aims to be intuitive while maintaining robust features.
-
-## Features
-- **Explicit Typing**: Declare variable types explicitly for clarity.
-- **Dynamic Objects**: Use generic declarations like `let` or `var` when types are unknown.
-- **Constants**: Immutable variables with `const`.
-- **Functions**: Clear and concise syntax using the `function` keyword.
-- **Classes**: Object-oriented programming with class support.
-- **Imports**: Modular programming with an `import` system.
+Welcome to **Sparq**—a lightweight, beginner-friendly programming language designed for simplicity and power! Inspired by **JavaScript** and **C++**, Sparq makes coding intuitive without sacrificing robust features.
 
 ---
 
-## Sparq Syntax
+## ✨ Features
+✅ **Explicit Typing**: Easily declare variable types for clarity.  
+✅ **Dynamic Objects**: Use `let` or `var` for type inference when needed.  
+✅ **Constants**: Keep values immutable with `const`.  
+✅ **Functions**: Clean, readable syntax with the `function` keyword.  
+✅ **Classes**: Enjoy object-oriented programming support.  
+✅ **Modular Imports**: Keep your code clean with an `import` system.  
 
-### Variables
+---
+
+## 🧠 Sparq Syntax Cheat Sheet
+
+### 🔢 Variables
 ```sparq
 int x = 10;         // Integer variable
 str y = "Hello";    // String variable
@@ -23,14 +25,14 @@ let z = 42;         // Generic variable (type inferred)
 const pi = 3.1415;  // Immutable constant
 ```
 
-### Functions
+### 🎉 Functions
 ```sparq
 function greet(str name) {
     print("Hello, " + name);
 }
 ```
 
-### Conditionals
+### 🛤️ Conditionals
 ```sparq
 if (x > 5) {
     print("x is greater than 5");
@@ -39,7 +41,7 @@ if (x > 5) {
 }
 ```
 
-### Loops
+### 🔁 Loops
 ```sparq
 for (int i = 0; i < 10; i++) {
     print(i);
@@ -52,7 +54,7 @@ while (x > 0) {
 }
 ```
 
-### Objects
+### 🧍 Objects
 ```sparq
 let person = {
     name: "DaPSL",         // string
@@ -62,7 +64,7 @@ let person = {
 print(person.name);
 ```
 
-### Classes
+### 🏛️ Classes
 ```sparq
 class Animal {
     str name;
@@ -77,21 +79,22 @@ class Animal {
 }
 ```
 
-## Built-in Libraries
-Sparq includes built-in libraries for common tasks, such as:
-- **Math**: ```Math.PI```, ```Math.sqrt(x)```, ```Math.pow(x, y)```, etc.
-- **String utilities**: Built-in methods like ```.length()```, ```.toUpperCase()```, ```.toLowerCase()``
-- **Basic I/O**: Functions like ```print()``` and ```input()```
+## 🛠️ Built-in Libraries
+### 📚 Standard Libraries Included
+Sparq has built-in tools for everyday coding tasks:
+- **Math**: Handy constants like Math.PI and functions like Math.sqrt(x).
+- **Strings**: Utilities like .length(), .toUpperCase(), and .toLowerCase().
+- **Basic I/O**: Use print() and input() for quick input/output tasks.
 
-## Example with Built-in Libraries
+### Example:
 ```sparq
 let radius = 5;
 let area = Math.PI * (radius * radius); // Built-in Math library
 print("Area: " + area);
 ```
 
-## Importing Modules
-For extended functionality, Sparq allows importing external or user-defined modules.
+## 📦 Importing Modules
+Take it further with external or custom modules:
 ```sparq
 import "utils.sq"; // importing user-defined moduled
 
@@ -102,23 +105,26 @@ function main() {
 ```
 
 
-## Getting Started
-1. Clone the Repository:
+## 🚀 Getting Started
+1️⃣ Clone the Repository
 ```bash
 git clone https://github.com/IAmThePSL/Sparq
 cd sparq
 ```
-2. Build the project:
+2️⃣ Build the Project
 ```bash
-make
+
 ```
-3. Run example Sparq programs:
+3️⃣ Run Sparq Programs
 ```bash
-./sparq examples/hello_world.sq
+./sparq examples/hello.sprq
 ```
 
-## Contribution
-Contributors are welcome! Feel free to submit pull requests or open issues to help improve Sparq
+## 🤝 Contribution
+We ❤️ contributors!
+Found a bug? Have a cool feature idea? Feel free to open an issue or submit a pull request. Let’s make Sparq even better together! ✨
 
-## License
+## 📜 License
 This project is licensed under the [MIT License](https://github.com/IAmThePSL/Sparq/blob/main/LICENSE)
+
+Let’s spark your coding journey with Sparq! 💡
