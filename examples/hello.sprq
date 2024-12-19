@@ -1,0 +1,5 @@
+// This is a single-line comment
+/* This is a multi-line comment */
+let x = 10;
+let y = 3.14;  // Floating-point number
+let str = "Hello \"World\""; // String with escape sequences
