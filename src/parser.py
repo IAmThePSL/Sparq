@@ -4,36 +4,44 @@ class Parser:
         self.tokens = tokens
         self.position = 0
 
-    def current_token(self):
-        return self.tokens[self.position] if self.position < len(self.tokens) else None
-
-    def advance(self):
-        self.position += 1
-
-    def parse_print(self):
-        """Parse a print statement like `print(x)`."""
-        if self.current_token() == ("IDENTIFIER", "print"):
-            self.advance()  # Skip `print`
-            if self.current_token() == ("LPAREN", "("):
-                self.advance()  # Skip `(`
-                expr = self.parse_expression()  # Parse the expression inside
-                if self.current_token() == ("RPAREN", ")"):
-                    self.advance()  # Skip `)`
-                    return ("PRINT", expr)
-        raise Exception("Syntax error in print statement")
-
-    def parse_expression(self):
-        """Parse a basic expression (e.g., variable, number)."""
-        token = self.current_token()
-        if token and token[0] in ["IDENTIFIER", "NUMBER", "STRING"]:
-            self.advance()
-            return token
-        raise Exception("Invalid expression")
-
     def parse(self):
-        """Parse the tokens into an AST."""
-        token = self.current_token()
-        if token and token[0] == "IDENTIFIER" and token[1] == "print":
-            return self.parse_print()
+        ast = []
+        while self.position < len(self.tokens):
+            stmt = self.parse_statement()
+            if stmt:
+                ast.append(stmt)
+        return ast
+
+    def parse_statement(self):
+        token_type, value = self.peek()
+        if token_type == "KEYWORD" and value == "let":
+            return self.parse_variable_declaration()
         else:
-            raise Exception(f"Unknown statement: {token}")
+            raise Exception(f"Unknown statement: {self.peek()}")
+
+    def parse_variable_declaration(self):
+        # Consume 'let'
+        self.consume("KEYWORD", "let")
+
+        # Get variable name
+        token_type, name = self.consume("IDENTIFIER")
+        # Ensure '=' follows
+        self.consume("ASSIGN", "=")
+
+        # Get the value
+        token_type, value = self.consume("NUMBER")
+
+        # Ensure the line ends with a semicolon
+        self.consume("SEMICOLON", ";")
+
+        return {"type": "VariableDeclaration", "name": name, "value": int(value)}
+
+    def peek(self):
+        return self.tokens[self.position]
+
+    def consume(self, expected_type, expected_value=None):
+        token = self.tokens[self.position]
+        if token[0] != expected_type or (expected_value and token[1] != expected_value):
+            raise Exception(f"Expected {expected_type} {expected_value}, got {token}")
+        self.position += 1
+        return token
