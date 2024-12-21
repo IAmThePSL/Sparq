@@ -6,7 +6,7 @@ Welcome to **Sparq**—a lightweight, beginner-friendly programming language des
 
 ## ✨ Features
 ✅ **Explicit Typing**: Easily declare variable types for clarity.  
-✅ **Dynamic Objects**: Use `let` or `var` for type inference when needed.  
+✅ **Dynamic Objects**: Use `let` or for type inference when needed.  
 ✅ **Constants**: Keep values immutable with `const`.  
 ✅ **Functions**: Clean, readable syntax with the `function` keyword.  
 ✅ **Classes**: Enjoy object-oriented programming support.  
