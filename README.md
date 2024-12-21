@@ -128,3 +128,7 @@ Found a bug? Have a cool feature idea? Feel free to open an issue or submit a pu
 This project is licensed under the [MIT License](https://github.com/IAmThePSL/Sparq/blob/main/LICENSE)
 
 Let’s spark your coding journey with Sparq! 💡
+
+
+### NOTE:
+**Sparq is currently under active development. Some features listed in this document may not yet be available. Thank you for your patience and support!**
