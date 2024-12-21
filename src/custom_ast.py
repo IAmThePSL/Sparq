@@ -1,3 +1,4 @@
+# custom_ast.py
 class ASTNode:
     def __init__(self, node_type, **kwargs):
         self.type = node_type
@@ -14,8 +15,12 @@ class BinaryOperationNode(ASTNode):
         return f"BinaryOperation(operator='{self.attributes['operator']}', left={self.attributes['left']}, right={self.attributes['right']})"
 
 class VariableDeclarationNode(ASTNode):
-    def __init__(self, name, value):
-        super().__init__("VariableDeclaration", name=name, value=value)
+    def __init__(self, name, value, var_type=None, is_const=False):
+        super().__init__("VariableDeclaration",
+                        name=name,
+                        value=value,
+                        var_type=var_type,
+                        is_const=is_const)
 
     def __repr__(self):
         return f"VariableDeclaration(name={self.attributes['name']}, value={self.attributes['value']})"
