@@ -1,47 +1,112 @@
 # parser.py: Parses tokens into an AST
+from custom_ast import ASTNode, VariableDeclarationNode, PrintNode, BinaryOperationNode #stop fucking complaining it works
+
 class Parser:
     def __init__(self, tokens):
         self.tokens = tokens
         self.position = 0
 
+    def current_token(self):
+        if self.position < len(self.tokens):
+            return self.tokens[self.position]
+        return None
+
+    def peek_token(self):
+        if self.position + 1 < len(self.tokens):
+            return self.tokens[self.position + 1]
+        return None
+
+    def advance(self):
+        self.position += 1
+
+    def match(self, expected_type):
+        token = self.current_token()
+        if token and token[0] == expected_type:
+            self.advance()
+            return token
+        raise Exception(f"Expected {expected_type}, found {token}")
+
     def parse(self):
         ast = []
-        while self.position < len(self.tokens):
-            stmt = self.parse_statement()
-            if stmt:
-                ast.append(stmt)
+        while self.current_token():
+            ast.append(self.parse_statement())
         return ast
 
     def parse_statement(self):
-        token_type, value = self.peek()
-        if token_type == "KEYWORD" and value == "let":
+        token = self.current_token()
+        if not token:
+            raise Exception("Unexpected end of input")
+
+        if token[0] == "KEYWORD" and token[1] == "let":
             return self.parse_variable_declaration()
+        elif token[0] == "IDENTIFIER" and token[1] == "print":
+            return self.parse_print_statement()
         else:
-            raise Exception(f"Unknown statement: {self.peek()}")
+            raise Exception(f"Unknown statement: {token}")
 
     def parse_variable_declaration(self):
-        # Consume 'let'
-        self.consume("KEYWORD", "let")
+        self.match("KEYWORD")  # `let`
+        name_token = self.match("IDENTIFIER")  # Variable name
+        self.match("ASSIGN")  # `=`
+        value = self.parse_expression()  # Right-hand side
+        self.match("SEMICOLON")  # `;`
+        return VariableDeclarationNode(name_token[1], value)
 
-        # Get variable name
-        token_type, name = self.consume("IDENTIFIER")
-        # Ensure '=' follows
-        self.consume("ASSIGN", "=")
+    def parse_print_statement(self):
+        self.match("IDENTIFIER")  # `print`
+        self.match("LPAREN")  # `(`
+        value = self.parse_expression()
+        self.match("RPAREN")  # `)`
+        self.match("SEMICOLON")  # `;`
+        return PrintNode(value)
 
-        # Get the value
-        token_type, value = self.consume("NUMBER")
+    def parse_expression(self):
+        return self.parse_additive_expression()
 
-        # Ensure the line ends with a semicolon
-        self.consume("SEMICOLON", ";")
+    def parse_additive_expression(self):
+        left = self.parse_multiplicative_expression()
 
-        return {"type": "VariableDeclaration", "name": name, "value": int(value)}
+        while self.current_token() and self.current_token()[0] == "OPERATOR":
+            operator = self.current_token()[1]
+            if operator not in ['+', '-']:
+                break
+            self.advance()
+            right = self.parse_multiplicative_expression()
+            left = BinaryOperationNode(operator, left, right)
 
-    def peek(self):
-        return self.tokens[self.position]
+        return left
 
-    def consume(self, expected_type, expected_value=None):
-        token = self.tokens[self.position]
-        if token[0] != expected_type or (expected_value and token[1] != expected_value):
-            raise Exception(f"Expected {expected_type} {expected_value}, got {token}")
-        self.position += 1
-        return token
+    def parse_multiplicative_expression(self):
+        left = self.parse_primary()
+
+        while self.current_token() and self.current_token()[0] == "OPERATOR":
+            operator = self.current_token()[1]
+            if operator not in ['*', '/', '%']:
+                break
+            self.advance()
+            right = self.parse_primary()
+            left = BinaryOperationNode(operator, left, right)
+
+        return left
+
+    def parse_primary(self):
+        token = self.current_token()
+        if not token:
+            raise Exception("Unexpected end of expression")
+
+        if token[0] == "NUMBER":
+            self.advance()
+            return token[1]
+        elif token[0] == "STRING":
+            self.advance()
+            return token[1]
+        elif token[0] == "IDENTIFIER":
+            self.advance()
+            return token[1]
+        elif token[0] == "LPAREN":
+            self.advance()
+            expr = self.parse_expression()
+            self.match("RPAREN")
+            return expr
+        else:
+            raise Exception(f"Unexpected token in expression: {token}")
