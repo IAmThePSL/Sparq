@@ -1,5 +1,6 @@
 # parser.py: Parses tokens into an AST
-from custom_ast import ASTNode, VariableDeclarationNode, PrintNode, BinaryOperationNode #stop fucking complaining it works
+from custom_ast import ASTNode, VariableDeclarationNode, PrintNode, BinaryOperationNode
+from custom_types import ValueType
 
 class Parser:
     def __init__(self, tokens):
@@ -37,20 +38,38 @@ class Parser:
         if not token:
             raise Exception("Unexpected end of input")
 
-        if token[0] == "KEYWORD" and token[1] == "let":
-            return self.parse_variable_declaration()
+        if token[0] == "KEYWORD":
+            if token[1] in ["let", "const", "int", "str", "bool"]:
+                return self.parse_variable_declaration()
         elif token[0] == "IDENTIFIER" and token[1] == "print":
             return self.parse_print_statement()
         else:
             raise Exception(f"Unknown statement: {token}")
 
     def parse_variable_declaration(self):
-        self.match("KEYWORD")  # `let`
+        token = self.current_token()
+        is_const = token[1] == "const"
+        var_type = None
+
+        if token[1] in ["int", "str", "bool"]:
+            var_type = {
+                "int": ValueType.INT,
+                "str": ValueType.STRING,
+                "bool": ValueType.BOOLEAN
+            }[token[1]]
+
+        self.advance()  # Move past type/let/const
         name_token = self.match("IDENTIFIER")  # Variable name
         self.match("ASSIGN")  # `=`
         value = self.parse_expression()  # Right-hand side
         self.match("SEMICOLON")  # `;`
-        return VariableDeclarationNode(name_token[1], value)
+
+        return VariableDeclarationNode(
+            name=name_token[1],
+            value=value,
+            var_type=var_type,
+            is_const=is_const
+        )
 
     def parse_print_statement(self):
         self.match("IDENTIFIER")  # `print`
@@ -94,10 +113,7 @@ class Parser:
         if not token:
             raise Exception("Unexpected end of expression")
 
-        if token[0] == "NUMBER":
-            self.advance()
-            return token[1]
-        elif token[0] == "STRING":
+        if token[0] in ["NUMBER", "STRING", "BOOLEAN"]:
             self.advance()
             return token[1]
         elif token[0] == "IDENTIFIER":
