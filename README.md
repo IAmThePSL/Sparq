@@ -131,4 +131,4 @@ Let’s spark your coding journey with Sparq! 💡
 
 
 > [!NOTE]
-> **Sparq is currently under active development. Some features listed in this document may not yet be available. Thank you for your patience and support!**
+> **Sparq is currently under active development. Some features listed in this document may not yet be available. I will also only committing when my code actually works. Thank you for your patience and support!**
