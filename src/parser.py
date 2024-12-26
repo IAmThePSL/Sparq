@@ -1,6 +1,6 @@
 # parser.py: Parses tokens into an AST
 
-### GITHUB: I know this is not a working code. So, sorry in advance for not getting this stupid code to work.
+### GITHUB: I know this is not working code. So, sorry in advance for not getting this stupid code to work.
 ### GITHUB: I really am trying my best but I just can't seem to get it working. This is just an update for Github. 
 ### GITHUB: Have a nice day!
 
