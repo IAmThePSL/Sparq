@@ -51,10 +51,11 @@ class Parser:
         is_const = token[1] == "const"
         var_type = None
 
-        if token[1] in ["int", "str", "bool"]:
+        if token[1] in ["int", "str", "string", "bool"]:
             var_type = {
                 "int": ValueType.INT,
                 "str": ValueType.STRING,
+                "string": ValueType.STRING,
                 "bool": ValueType.BOOLEAN
             }[token[1]]
 
