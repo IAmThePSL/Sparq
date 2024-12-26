@@ -11,3 +11,8 @@ python3 src/lexer.py examples/hello.sprq
 ```bash
 python3 src/repl.py
 ```
+
+### RUN MAIN
+```bash
+python3 src/main.py
+```
