@@ -19,9 +19,9 @@ Welcome to **Sparq**—a lightweight, beginner-friendly programming language des
 ### 🔢 Variables
 ```sparq
 int x = 10;         // Integer variable
-str y = "Hello";    // String variable
+string msg = "Hello";    // String variable
 bool cool = true;   // Boolean variable
-let z = 42;         // Generic variable (type inferred)
+let y = 42;         // Generic variable (type inferred)
 const pi = 3.1415;  // Immutable constant
 ```
 
