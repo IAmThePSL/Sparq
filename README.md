@@ -1,6 +1,6 @@
 # 🚀 Sparq Programming Language 🌟
 
-Welcome to **Sparq**—a lightweight, beginner-friendly programming language designed for simplicity and power! Inspired by **Python**,**JavaScript** and **C++**, Sparq makes coding intuitive without sacrificing robust features.
+Welcome to **Sparq**—a lightweight, beginner-friendly programming language designed for simplicity and power! Inspired by **Python**, **JavaScript** and **C++**, Sparq makes coding intuitive without sacrificing robust features.
 
 ---
 
